@@ -1,0 +1,38 @@
+{% extends "planner/base.html" %}
+{% block title %}Streaks | AI Habit Tracker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Your Streaks</h1>
+
+<div class="widget">
+    <h3>Current Streaks</h3>
+
+    <div class="circle-row">
+        <div class="circle-card">
+            <div class="circle">12</div>
+            <span>Workout</span>
+        </div>
+
+        <div class="circle-card">
+            <div class="circle">7</div>
+            <span>Reading</span>
+        </div>
+
+        <div class="circle-card">
+            <div class="circle">18</div>
+            <span>Water Intake</span>
+        </div>
+    </div>
+</div>
+
+<div class="widget">
+    <h3>Streak Graph (Past 14 days)</h3>
+    <div class="bar-row" style="align-items:flex-end;">
+        <div class="bar-group"><div class="bar bar-blue" style="height:50px;"></div><span>Day1</span></div>
+        <div class="bar-group"><div class="bar bar-blue" style="height:80px;"></div><span>Day2</span></div>
+        <div class="bar-group"><div class="bar bar-blue" style="height:70px;"></div><span>Day3</span></div>
+        <div class="bar-group"><div class="bar bar-blue" style="height:100px;"></div><span>Day4</span></div>
+    </div>
+</div>
+
+{% endblock %}

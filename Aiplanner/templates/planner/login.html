@@ -1,0 +1,22 @@
+{% extends "planner/base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Login</h1>
+
+<div class="info-card" style="max-width:400px;text-align:center;">
+    <h2>Welcome Back</h2>
+
+    <input type="text" placeholder="Email" style="padding:10px;width:100%;border-radius:10px;border:none;margin-top:10px;">
+    <input type="password" placeholder="Password" style="padding:10px;width:100%;border-radius:10px;border:none;margin-top:10px;">
+
+    <button style="margin-top:15px;padding:10px 15px;border-radius:10px;background:#6f5bff;color:white;border:none;width:100%;">
+        Login
+    </button>
+
+    <p style="margin-top:10px;">
+        Don't have an account?
+        <a href="{% url 'register' %}" style="color:#9da2ff;">Register</a>
+    </p>
+</div>
+{% endblock %}

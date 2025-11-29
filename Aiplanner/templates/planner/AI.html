@@ -1,0 +1,35 @@
+{% extends "planner/base.html" %}
+{% block title %}AI Suggestions | AI Habit Tracker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">AI Recommendations</h1>
+
+<div class="widget">
+    <h3>Smart Suggestions</h3>
+    <p>Your habits are analyzed and optimized using AI.</p>
+
+    <div class="card">
+        <div class="card-header">
+            <span>Increase Water Intake</span>
+            <i class="fas fa-lightbulb"></i>
+        </div>
+        <p>You logged low hydration yesterday. Aim for 2.5L today.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span>Reduce Screen Time</span>
+            <i class="fas fa-eye-slash"></i>
+        </div>
+        <p>AI noticed high phone usage post 11 PM. Try reducing by 20 minutes.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span>Boost Focus</span>
+            <i class="fas fa-bolt"></i>
+        </div>
+        <p>Based on energy patterns, 3 PM–5 PM is your peak focus time.</p>
+    </div>
+</div>
+{% endblock %}

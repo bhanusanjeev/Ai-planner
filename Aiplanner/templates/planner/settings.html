@@ -1,0 +1,25 @@
+{% extends "planner/base.html" %}
+{% block title %}Settings | AI Habit Tracker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Settings</h1>
+
+<div class="info-card" style="max-width:600px;">
+    <h2>Preferences</h2>
+
+    <p><strong>Theme:</strong></p>
+    <select style="padding:10px;width:100%;border-radius:10px;border:none;">
+        <option>Dark (default)</option>
+        <option>Light</option>
+    </select>
+
+    <p style="margin-top:15px;"><strong>Notifications:</strong></p>
+    <label><input type="checkbox" checked> Daily reminders</label><br>
+    <label><input type="checkbox" checked> AI suggestions</label><br>
+    <label><input type="checkbox"> Weekly summary</label>
+
+    <button style="margin-top:20px;padding:10px 15px;background:#6f5bff;color:white;border:none;border-radius:10px;">
+        Save Settings
+    </button>
+</div>
+{% endblock %}

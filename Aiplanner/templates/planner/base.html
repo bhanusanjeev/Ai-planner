@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}AI Habit Tracker{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/a2f4b1b7ac.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-logo">AI<span>Habits</span></div>
+
+        <nav class="sidebar-nav full">
+          <a
+            href="{% url 'home' %}"
+            class="nav-item {% if request.path == '/' %}active{% endif %}"
+          >
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+          </a>
+
+          <a
+            href="{% url 'habits' %}"
+            class="nav-item {% if '/habits' in request.path %}active{% endif %}"
+          >
+            <i class="fas fa-check-circle"></i>
+            <span>Habits</span>
+          </a>
+
+          <a
+            href="{% url 'stats' %}"
+            class="nav-item {% if '/stats' in request.path %}active{% endif %}"
+          >
+            <i class="fas fa-chart-line"></i>
+            <span>Statistics</span>
+          </a>
+
+          <a
+            href="{% url 'streaks' %}"
+            class="nav-item {% if '/streaks' in request.path %}active{% endif %}"
+          >
+            <i class="fas fa-fire"></i>
+            <span>Streaks</span>
+          </a>
+
+          <a
+            href="{% url 'ai_suggestions' %}"
+            class="nav-item {% if '/ai-suggestions' in request.path %}active{% endif %}"
+          >
+            <i class="fas fa-robot"></i>
+            <span>AI Suggestions</span>
+          </a>
+
+          <a
+            href="{% url 'ai_chat' %}"
+            class="nav-item {% if '/ai-chat' in request.path %}active{% endif %}"
+          >
+            <i class="fas fa-comments"></i>
+            <span>AI Chat</span>
+          </a>
+
+          <a
+            href="{% url 'profile' %}"
+            class="nav-item {% if '/profile' in request.path %}active{% endif %}"
+          >
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
+
+          <!-- <a href="{% url 'settings' %}" class="nav-item {% if '/settings' in request.path %}active{% endif %}">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a> -->
+
+          <!-- <a href="{% url 'login' %}" class="nav-item login-item {% if '/login' in request.path %}active{% endif %}">
+            <i class="fas fa-sign-in-alt"></i>
+            <span>Login</span>
+        </a>
+
+        <a href="{% url 'register' %}" class="nav-item register-item {% if '/register' in request.path %}active{% endif %}">
+            <i class="fas fa-user-plus"></i>
+            <span>Register</span>
+        </a>
+
+        <a href="{% url 'about' %}" class="nav-item {% if '/about' in request.path %}active{% endif %}">
+            <i class="fas fa-info-circle"></i>
+            <span>About</span>
+        </a> -->
+        </nav>
+      </aside>
+
+      <!-- Main content -->
+      <main class="main">
+        <!-- Only ONE TOPBAR (this one) -->
+        <header class="topbar">
+          <div class="breadcrumbs">Dashboard</div>
+
+          <div class="topbar-right">
+            <a href="{% url 'about' %}" class="top-link">About</a>
+            <a href="{% url 'settings' %}" class="top-link">Settings</a>
+            <a href="{% url 'login' %}" class="top-link">Login</a>
+            <a href="{% url 'register' %}" class="top-link">Register</a>
+
+            <a
+              href="{% url 'profile' %}"
+              class="user-chip"
+              style="text-decoration: none"
+            >
+              <div class="user-avatar">B</div>
+              <div>
+                <div class="user-name">Bhanu</div>
+                <div class="user-role">Productive Mode</div>
+              </div>
+            </a>
+          </div>
+        </header>
+
+        <section class="page">{% block content %}{% endblock %}</section>
+      </main>
+    </div>
+
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+{% extends "planner/base.html" %}
+{% block title %}Planner | AI Habit Tracker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Daily Planner</h1>
+
+<div class="widget">
+    <h3>Today's Timeline</h3>
+
+    <div class="plan-item">
+        <span>06:00 - 07:00</span>
+        <div class="pill pill-blue">Morning Routine</div>
+    </div>
+
+    <div class="plan-item">
+        <span>07:00 - 08:00</span>
+        <div class="pill pill-purple">Workout</div>
+    </div>
+
+    <div class="plan-item">
+        <span>14:00 - 15:00</span>
+        <div class="pill pill-orange">Project Work</div>
+    </div>
+
+    <div class="plan-item">
+        <span>21:00 - 22:00</span>
+        <div class="pill pill-pink">Deep Work</div>
+    </div>
+</div>
+
+<div class="info-card" style="margin-top:20px;max-width:600px;">
+    <h3>Create a New Plan</h3>
+    <input type="time" style="padding:8px;width:40%;border-radius:10px;border:none;">
+    <input type="time" style="padding:8px;width:40%;border-radius:10px;border:none;margin-left:10px;">
+    <input type="text" placeholder="Task" style="padding:8px;width:100%;border-radius:10px;border:none;margin-top:10px;">
+    <button style="margin-top:10px;padding:10px 15px;border-radius:10px;background:#6f5bff;color:white;border:none;">
+        Add Plan
+    </button>
+</div>
+{% endblock %}

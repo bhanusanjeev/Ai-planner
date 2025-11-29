@@ -1,0 +1,49 @@
+{% extends "planner/base.html" %}
+{% block title %}Habits | AI Habit Tracker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Habits</h1>
+
+<div class="info-card" style="max-width:700px;">
+    <h2>Manage Your Daily Habits</h2>
+    <p>Create, edit, delete and track your habits.</p>
+
+    <div style="margin-top:20px;">
+        <form class="info-card" style="background:#101231;">
+            <h3>Add New Habit</h3>
+            <input type="text" placeholder="Habit name" style="padding:10px;width:100%;border-radius:10px;border:none;margin-top:10px;">
+            <button style="margin-top:10px;padding:10px 15px;border-radius:10px;background:#6f5bff;color:white;border:none;">
+                Add Habit
+            </button>
+        </form>
+    </div>
+
+    <h3 style="margin-top:25px;">Your Habits</h3>
+    <div class="card" style="margin-top:12px;">
+        <div class="card-header">
+            <span>Morning Workout</span>
+            <i class="fas fa-ellipsis-v"></i>
+        </div>
+        <p>30 minutes strength routine.</p>
+        <div class="progress-wrapper">
+            <span>Progress</span>
+            <div class="progress-bar"><div class="progress-fill" style="width:60%;"></div></div>
+            <span>60%</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span>Read 10 pages</span>
+            <i class="fas fa-ellipsis-v"></i>
+        </div>
+        <p>Evening knowledge habit.</p>
+        <div class="progress-wrapper">
+            <span>Progress</span>
+            <div class="progress-bar"><div class="progress-fill" style="width:40%;"></div></div>
+            <span>40%</span>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
