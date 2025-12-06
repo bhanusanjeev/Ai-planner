@@ -1,0 +1,73 @@
+{% extends "planner/base.html" %}
+{% block title %}Delete Account{% endblock %}
+
+{% block content %}
+<h1 class="page-title" style="color:#ff6b6b;">Delete Account ❌</h1>
+
+<div class="info-card" style="max-width:450px;text-align:center;">
+    <h2 style="color:#ff7070;">Warning!</h2>
+    <p style="font-size:14px;opacity:0.8;">
+        This action is permanent. All your habits, logs, and data will be erased forever.
+    </p>
+
+    <!-- Delete Button triggers modal -->
+    <button class="logout-btn" onclick="openModal()">
+        Delete My Account
+    </button>
+</div>
+
+<!-- Modal -->
+<div class="modal-buttons">
+    <form method="POST" action="{% url 'confirm_delete_account' %}">
+        {% csrf_token %}
+        <button type="submit" class="delete-btn">Yes, Delete</button>
+    </form>
+
+    <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+</div>
+
+
+<style>
+.modal-overlay {
+    display:none;
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,0.7);
+    display:flex;align-items:center;justify-content:center;
+}
+.modal-card {
+    background:#171836;
+    padding:25px;
+    border-radius:15px;
+    width:320px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,0.4);
+}
+.delete-btn {
+    background:#ff4d6d;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+}
+.cancel-btn {
+    background:#333;
+    padding:10px 18px;
+    border:none;
+    border-radius:10px;
+    margin-left:10px;
+    color:white;
+    cursor:pointer;
+}
+</style>
+
+<script>
+function openModal() {
+    document.getElementById("deleteModal").style.display = "flex";
+}
+function closeModal() {
+    document.getElementById("deleteModal").style.display = "none";
+}
+</script>
+
+{% endblock %}

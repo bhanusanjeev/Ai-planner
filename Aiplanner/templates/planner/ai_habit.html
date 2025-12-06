@@ -1,0 +1,38 @@
+{% extends "planner/base.html" %}
+{% block title %}AI Assistant{% endblock %}
+
+{% block content %}
+<h1 class="page-title">AI Assistant</h1>
+
+<div class="info-card" style="max-width:700px;">
+    <h2>Chat with your AI Habit Coach</h2>
+
+    <div id="chat-box" style="height:300px;overflow-y:auto;background:#101231;border-radius:12px;padding:15px;margin-top:10px;">
+        <p><strong>AI:</strong> Hello Bhanu! How can I help with your habits today?</p>
+    </div>
+
+    <input id="chat-input" type="text" placeholder="Ask something..." 
+           style="width:100%;padding:10px;border-radius:10px;border:none;margin-top:10px;">
+
+    <button onclick="sendMessage()" style="margin-top:10px;padding:10px 15px;border-radius:10px;background:#6f5bff;color:white;border:none;">
+        Send
+    </button>
+</div>
+
+<script>
+function sendMessage() {
+    let box = document.getElementById("chat-box");
+    let input = document.getElementById("chat-input");
+    if (input.value.trim() === "") return;
+
+    box.innerHTML += `<p><strong>You:</strong> ${input.value}</p>`;
+    box.scrollTop = box.scrollHeight;
+    input.value = "";
+
+    setTimeout(() => {
+        box.innerHTML += `<p><strong>AI:</strong> Got it! I'm processing your request...</p>`;
+        box.scrollTop = box.scrollHeight;
+    }, 500);
+}
+</script>
+{% endblock %}

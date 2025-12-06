@@ -1,0 +1,48 @@
+{% extends "planner/base.html" %}
+{% block title %}AI Suggestions{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">AI Suggestions 🤖</h1>
+
+<div class="info-card" style="max-width:650px;">
+    <h2>Your Analytics Summary</h2>
+
+    <div class="pill-row" style="margin-top:10px;">
+        <span class="pill pill-blue">Today: {{ stats.today_score }}%</span>
+        <span class="pill pill-purple">Weekly Avg: {{ stats.weekly_avg_score }}%</span>
+        <span class="pill pill-orange">Streak: {{ stats.current_streak }} Days</span>
+    </div>
+
+    <hr style="opacity:0.1; margin:20px 0;">
+
+    <h2>Personal AI Recommendations</h2>
+    <p style="opacity:0.8; margin-bottom:10px;">Powered by Groq AI</p>
+
+    <div class="ai-box">
+        {{ ai_html|safe }}
+    </div>
+</div>
+
+<style>
+.ai-box {
+    background: #12122a;
+    padding: 18px;
+    border-radius: 12px;
+    margin-top: 10px;
+    color: #dcdcff;
+    line-height: 1.65;
+    font-size: 15px;
+}
+
+.ai-box ul {
+    margin-left: 18px;
+    margin-bottom: 12px;
+}
+
+.ai-box li {
+    margin-bottom: 8px;
+}
+</style>
+
+{% endblock %}

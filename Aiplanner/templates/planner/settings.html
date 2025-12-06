@@ -2,24 +2,151 @@
 {% block title %}Settings | AI Habit Tracker{% endblock %}
 
 {% block content %}
-<h1 class="page-title">Settings</h1>
+<h1 class="page-title">Settings ⚙️</h1>
 
-<div class="info-card" style="max-width:600px;">
-    <h2>Preferences</h2>
+<form method="POST" class="info-card" style="max-width:650px; text-align:center;">
+    {% csrf_token %}
 
-    <p><strong>Theme:</strong></p>
-    <select style="padding:10px;width:100%;border-radius:10px;border:none;">
-        <option>Dark (default)</option>
-        <option>Light</option>
-    </select>
+    <!-- Header -->
+    <h2 style="margin-bottom:5px;">Customize Your Experience</h2>
+    <p style="opacity:0.8; font-size:14px;">
+        Tune the app to match your workflow and preferences.
+    </p>
 
-    <p style="margin-top:15px;"><strong>Notifications:</strong></p>
-    <label><input type="checkbox" checked> Daily reminders</label><br>
-    <label><input type="checkbox" checked> AI suggestions</label><br>
-    <label><input type="checkbox"> Weekly summary</label>
+    <hr style="border-color:rgba(255,255,255,0.08); margin:20px 0;" />
 
-    <button style="margin-top:20px;padding:10px 15px;background:#6f5bff;color:white;border:none;border-radius:10px;">
-        Save Settings
-    </button>
-</div>
+
+
+    <!-- ============================
+         NOTIFICATION SETTINGS
+    ============================= -->
+    <div class="setting-group">
+        <h3 style="margin-bottom:8px;">🔔 Notifications</h3>
+
+        <label class="setting-toggle">
+            <input type="checkbox" name="daily_reminders" {% if settings.daily_reminders %}checked{% endif %}>
+            <span>Daily reminders</span>
+        </label>
+
+        <label class="setting-toggle">
+            <input type="checkbox" name="ai_suggestions" {% if settings.ai_suggestions %}checked{% endif %}>
+            <span>AI habit suggestions</span>
+        </label>
+
+        <label class="setting-toggle">
+            <input type="checkbox" name="weekly_summary" {% if settings.weekly_summary %}checked{% endif %}>
+            <span>Weekly productivity summary</span>
+        </label>
+    </div>
+
+    <hr style="border-color:rgba(255,255,255,0.05); margin:20px 0;" />
+
+
+    <!-- ============================
+         ACCOUNT SETTINGS
+    ============================= -->
+    <div class="setting-group">
+        <h3 style="margin-bottom:8px;">👤 Account</h3>
+
+        <label class="setting-toggle">
+            <span>Email: <strong>{{ user.email }}</strong></span>
+        </label>
+
+        <label class="setting-toggle">
+            <span>Name: <strong>{{ user.first_name }}</strong></span>
+        </label>
+
+        <a href="#" style="color:#9da2ff; display:block; margin-top:8px;">Change Password</a>
+        <a href="#" style="color:#9da2ff; display:block; margin-top:5px;">Edit Profile</a>
+    </div>
+
+    <hr style="border-color:rgba(255,255,255,0.05); margin:20px 0;" />
+
+
+    <!-- ============================
+         HABIT & AI SETTINGS
+    ============================= -->
+    <div class="setting-group">
+        <h3 style="margin-bottom:8px;">🤖 Habit & AI Preferences</h3>
+
+        <label class="setting-toggle">
+            <input type="checkbox" name="smart_tracking">
+            <span>Enable Smart Habit Tracking</span>
+        </label>
+
+        <label class="setting-toggle">
+            <input type="checkbox" name="ai_tips">
+            <span>Show Daily AI Tips</span>
+        </label>
+    </div>
+
+    <hr style="border-color:rgba(255,255,255,0.05); margin:20px 0;" />
+
+
+    <!-- ============================
+         SAVE BUTTON
+    ============================= -->
+    <button class="settings-save-btn">Save Settings</button>
+
+</form>
+
+
+<!-- Styling (kept exactly your theme + aligned properly) -->
+<style>
+    .settings-input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        border: none;
+        background: #0d0f2a;
+        color: white;
+        font-size: 14px;
+        margin-top: 8px;
+        transition: 0.3s;
+    }
+    .settings-input:focus {
+        outline: none;
+        box-shadow: 0 0 10px rgba(111, 91, 255, 0.6);
+        border-color: #6f5bff;
+    }
+
+    .setting-group {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .setting-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+        font-size: 15px;
+    }
+
+    .setting-toggle input {
+        accent-color: #6f5bff;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }
+
+    .settings-save-btn {
+        margin-top: 10px;
+        padding: 12px 18px;
+        width: 100%;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        background: linear-gradient(135deg, #6f5bff, #ff4fd8);
+        color: white;
+        font-size: 15px;
+        transition: 0.25s;
+    }
+    .settings-save-btn:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
+</style>
+
 {% endblock %}

@@ -2,37 +2,72 @@
 {% block title %}Streaks | AI Habit Tracker{% endblock %}
 
 {% block content %}
-<h1 class="page-title">Your Streaks</h1>
+<h1 class="page-title">🔥 Your Streak Analytics</h1>
 
-<div class="widget">
-    <h3>Current Streaks</h3>
+<div class="columns">
 
-    <div class="circle-row">
-        <div class="circle-card">
-            <div class="circle">12</div>
-            <span>Workout</span>
+    <!-- LEFT COLUMN -->
+    <div class="column">
+
+        <!-- Current Streak -->
+        <div class="card card-main">
+            <div class="card-header">
+                <span>Current Streak</span>
+            </div>
+            <p class="card-text" style="font-size:20px; font-weight:700;">
+                🔥 {{ streak }} Days
+            </p>
         </div>
 
-        <div class="circle-card">
-            <div class="circle">7</div>
-            <span>Reading</span>
+        <!-- Best Streak -->
+        <div class="card">
+            <div class="card-header">
+                <span>Best Streak Ever</span>
+            </div>
+            <p class="card-text" style="font-size:18px; font-weight:600;">
+                🏆 {{ best_streak }} Days
+            </p>
         </div>
 
-        <div class="circle-card">
-            <div class="circle">18</div>
-            <span>Water Intake</span>
+    </div>
+
+    <!-- MIDDLE COLUMN: TREND -->
+    <div class="column">
+        <h2 class="column-title">Habit Trend (Last 7 Days)</h2>
+
+        <div class="widget">
+            <div class="bar-row">
+                {% for t in trend %}
+                <div class="bar-group">
+                    <div class="bar bar-blue"
+                         style="height: {{ t|add:5 }}px;">
+                    </div>
+                    <span>D{{ forloop.counter }}</span>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
-</div>
 
-<div class="widget">
-    <h3>Streak Graph (Past 14 days)</h3>
-    <div class="bar-row" style="align-items:flex-end;">
-        <div class="bar-group"><div class="bar bar-blue" style="height:50px;"></div><span>Day1</span></div>
-        <div class="bar-group"><div class="bar bar-blue" style="height:80px;"></div><span>Day2</span></div>
-        <div class="bar-group"><div class="bar bar-blue" style="height:70px;"></div><span>Day3</span></div>
-        <div class="bar-group"><div class="bar bar-blue" style="height:100px;"></div><span>Day4</span></div>
+
+    <!-- RIGHT COLUMN: COMPLETION RATE -->
+    <div class="column">
+        <h2 class="column-title">Daily Completion %</h2>
+
+        <div class="widget">
+            <div class="bar-row">
+                {% for c in completion %}
+                <div class="bar-group">
+                    <div class="bar bar-purple"
+                         style="height: {{ c|add:5 }}px;">
+                    </div>
+                    <span>{{ c }}%</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
+
 </div>
 
 {% endblock %}

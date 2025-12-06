@@ -2,161 +2,236 @@
 {% block title %}Dashboard | AI Habit Tracker{% endblock %}
 
 {% block content %}
-<h1 class="page-title">Task Management</h1>
+
+<h1 class="page-title">Dashboard</h1>
+
 <div class="columns">
-    <!-- Column 1 -->
-    <div class="column">
-        <h2 class="column-title">Draft</h2>
 
-        <div class="card card-main">
-            <div class="card-header">
-                <span>Main Habit</span>
-                <i class="fas fa-ellipsis-v"></i>
-            </div>
-            <div class="card-body">
-                <div class="badge-row">
-                    <span class="pill pill-blue">Morning routine</span>
-                    <span class="pill pill-purple">AI score 82</span>
-                </div>
-                <p class="card-text">Wake early, hydrate, and journal for 10 minutes.</p>
-            </div>
-            <div class="card-footer">
-                <div class="footer-icons">
-                    <i class="far fa-comment"></i> 3
-                    <i class="far fa-clock"></i> 30m
-                </div>
-                <div class="star"><i class="far fa-star"></i></div>
-            </div>
+  <!-- ===================== COLUMN 1: SCORE + TODAY HABITS ===================== -->
+  <div class="column">
+    <h2 class="column-title">Today’s Overview</h2>
+
+    <!-- 1️⃣ AI Habit Score Card -->
+    <div class="card card-main">
+      <div class="card-header">
+        <span>AI Habit Score</span>
+        <i class="fas fa-brain"></i>
+      </div>
+      <div class="card-body">
+        <div class="badge-row">
+          <span class="pill pill-blue">Today: {{ stats.today_score }}%</span>
+          <span class="pill pill-purple">7-Day Avg: {{ stats.weekly_score }}%</span>
+          <span class="pill pill-orange">Best Streak: {{ stats.best_streak }}d</span>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                <span>Secondary Habit</span>
-                <i class="fas fa-ellipsis-v"></i>
-            </div>
-            <p class="card-text">Read 5 pages of a book.</p>
-        </div>
+        <p class="card-text">
+          Your score is based on how many habits you completed today, how consistent
+          you've been this week, and your best streak so far.
+        </p>
+      </div>
     </div>
 
-    <!-- Column 2 -->
-    <div class="column">
-        <h2 class="column-title">In Progress</h2>
-
-        <div class="card card-main">
-            <div class="card-header">
-                <span>Main Habit</span>
-                <i class="fas fa-ellipsis-v"></i>
-            </div>
-            <p class="card-text">Workout 45 minutes.</p>
-            <div class="progress-wrapper">
-                <span>Progress</span>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 75%;"></div>
-                </div>
-                <span class="progress-value">75%</span>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <span>Secondary Habit</span>
-                <i class="fas fa-ellipsis-v"></i>
-            </div>
-            <p class="card-text">Study DSA for 1 hour.</p>
-            <div class="progress-wrapper">
-                <span>AI focus level</span>
-                <div class="progress-bar">
-                    <div class="progress-fill pill-blue" style="width: 50%;"></div>
-                </div>
-                <span class="progress-value">50%</span>
-            </div>
-        </div>
+    <!-- 2️⃣ Current Streak Card -->
+    <div class="card">
+      <div class="card-header">
+        <span>Current Streak</span>
+        <i class="fas fa-fire"></i>
+      </div>
+      <p class="card-text" style="font-size:18px;font-weight:600;">
+        🔥 {{ stats.current_streak }} day{% if stats.current_streak != 1 %}s{% endif %}
+      </p>
+      <p class="card-text">
+        Total Habits: <strong>{{ stats.total_habits }}</strong> •
+        Done Today: <strong>{{ stats.done_today }}</strong>
+      </p>
     </div>
 
-    <!-- Column 3 -->
-    <div class="column">
-        <h2 class="column-title">Editing</h2>
+    <!-- TODAY'S HABITS (Dynamic) -->
+    <h2 class="column-title" style="margin-top:20px;">Today's Habits</h2>
 
-        <div class="card card-main">
-            <div class="card-header">
-                <span>Main Habit</span>
-                <i class="fas fa-ellipsis-v"></i>
-            </div>
-            <p class="card-text">Plan tomorrow using AI suggestions.</p>
-            <div class="chip-row">
-                <span class="chip chip-green">Low stress</span>
-                <span class="chip chip-orange">High impact</span>
-            </div>
+    {% if habit_data %}
+      {% for item in habit_data %}
+      <div class="card habit-card" style="margin-top:12px;">
+        <div class="card-header">
+          <span>{{ item.habit.name }}</span>
+
+          <!-- Delete Habit -->
+          <a href="{% url 'delete_habit' item.habit.id %}"
+             onclick="return confirm('Delete this habit?');">
+            <i class="fas fa-trash"></i>
+          </a>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                <span>Secondary Habit</span>
-                <i class="fas fa-ellipsis-v"></i>
-            </div>
-            <p class="card-text">Reflect on mood for 5 minutes.</p>
+        <!-- Toggle Done / Not Done -->
+        <form method="post" action="{% url 'toggle_habit_today' item.habit.id %}">
+          {% csrf_token %}
+          <div class="progress-wrapper" style="margin-top:8px; gap:10px;">
+            <span>Status:</span>
+
+            {% if item.done_today %}
+              <span class="pill pill-blue">Done</span>
+            {% else %}
+              <span class="chip chip-orange">Not Done</span>
+            {% endif %}
+
+            <button type="submit"
+                    style="margin-left:auto;padding:6px 10px;border-radius:8px;
+                           border:none;background:#101231;color:white;font-size:12px;cursor:pointer;">
+              Toggle
+            </button>
+          </div>
+        </form>
+      </div>
+      {% endfor %}
+    {% else %}
+      <p style="margin-top:10px;">No habits added yet. Go to the Habits page and create one.</p>
+    {% endif %}
+  </div>
+
+  <!-- ===================== COLUMN 2: 7-DAY TREND + LOG VOLUME ===================== -->
+  <div class="column">
+    <h2 class="column-title">7-Day Trend</h2>
+
+    <!-- 3️⃣ Completion Trend Chart -->
+    <div class="card card-main">
+      <div class="card-header">
+        <span>Completion Trend (Last 7 Days)</span>
+        <i class="fas fa-chart-line"></i>
+      </div>
+
+      <div class="widget">
+        <div class="bar-row">
+          {% for day in stats.trend %}
+          <div class="bar-group">
+            <div class="bar bar-blue"
+                 style="height: {{ day.percent|default:0 }}px;"></div>
+            <span>{{ day.label }}</span>
+          </div>
+          {% endfor %}
         </div>
+        <p class="card-text" style="margin-top:10px;">
+          Shows what % of your habits you completed each day.
+        </p>
+      </div>
     </div>
 
-    <!-- Right side widgets -->
-    <div class="right-panel">
-        <div class="widget">
-            <h3>Completed Habits</h3>
-            <div class="bar-row">
-                <div class="bar-group">
-                    <div class="bar bar-blue" style="height: 80px;"></div>
-                    <span>Morning</span>
-                </div>
-                <div class="bar-group">
-                    <div class="bar bar-pink" style="height: 60px;"></div>
-                    <span>Work</span>
-                </div>
-                <div class="bar-group">
-                    <div class="bar bar-purple" style="height: 70px;"></div>
-                    <span>Health</span>
-                </div>
-                <div class="bar-group">
-                    <div class="bar bar-orange" style="height: 50px;"></div>
-                    <span>Evening</span>
-                </div>
-            </div>
-        </div>
+    <!-- 4️⃣ Log Volume Chart -->
+    <div class="card">
+      <div class="card-header">
+        <span>Log Volume (Last 7 Days)</span>
+        <i class="fas fa-stream"></i>
+      </div>
 
-        <div class="widget">
-            <h3>Efficiency</h3>
-            <div class="circle-row">
-                <div class="circle-card">
-                    <div class="circle">75%</div>
-                    <span>Today</span>
-                </div>
-                <div class="circle-card">
-                    <div class="circle">62%</div>
-                    <span>This week</span>
-                </div>
-                <div class="circle-card">
-                    <div class="circle">88%</div>
-                    <span>Best streak</span>
-                </div>
-            </div>
+      <div class="widget">
+        <div class="bar-row">
+          {% for day in stats.volume %}
+          {% with h=day.count|add:"10" %} {# base height so tiny values still visible #}
+          <div class="bar-group">
+            <div class="bar bar-purple" style="height: {{ h }}px;"></div>
+            <span>{{ day.label }}</span>
+          </div>
+          {% endwith %}
+          {% endfor %}
         </div>
-
-        <div class="widget">
-            <h3>Plan</h3>
-            <div class="plan-item">
-                <span>06:00 - 07:00</span>
-                <div>
-                    <div class="pill pill-blue">Morning routine</div>
-                </div>
-            </div>
-            <div class="plan-item">
-                <span>07:00 - 08:00</span>
-                <div class="pill pill-purple">Workout</div>
-            </div>
-            <div class="plan-item">
-                <span>21:00 - 22:00</span>
-                <div class="pill pill-pink">Deep work</div>
-            </div>
-        </div>
+        <p class="card-text" style="margin-top:10px;">
+          Raw habit check-ins per day (done + missed). Taller bar = more tracking activity.
+        </p>
+      </div>
     </div>
+  </div>
+
+  <!-- ===================== COLUMN 3: CONSISTENCY + LEADERBOARD ===================== -->
+  <div class="column">
+    <h2 class="column-title">Consistency & Habits</h2>
+
+    <!-- 5️⃣ Consistency Heat Row (Last 7 Days) -->
+    <div class="card card-main">
+      <div class="card-header">
+        <span>Consistency Heat (7 Days)</span>
+        <i class="fas fa-temperature-high"></i>
+      </div>
+
+      <div class="chip-row" style="margin-top:8px; flex-wrap:wrap;">
+        {% for day in stats.trend %}
+          {% if day.percent >= 80 %}
+            <span class="chip chip-green">{{ day.label }} • {{ day.percent }}%</span>
+          {% elif day.percent >= 40 %}
+            <span class="chip chip-orange">{{ day.label }} • {{ day.percent }}%</span>
+          {% else %}
+            <span class="chip" style="background:rgba(255,255,255,0.05);">
+              {{ day.label }} • {{ day.percent }}%
+            </span>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <p class="card-text">
+        Green = great days, orange = okay, grey = low-activity days. Aim for a green week 🌱
+      </p>
+    </div>
+
+    <!-- Habit Leaderboard -->
+    <div class="card">
+      <div class="card-header">
+        <span>Habit Leaderboard (Last 14 Days)</span>
+        <i class="fas fa-trophy"></i>
+      </div>
+
+      {% if stats.habit_leaderboard %}
+        {% for row in stats.habit_leaderboard %}
+        <div style="margin-bottom:10px;">
+          <div style="font-size:13px; margin-bottom:4px;">
+            {{ forloop.counter }}. {{ row.habit.name }}
+            <span style="opacity:0.7;">– {{ row.percent }}%</span>
+          </div>
+          <div class="progress-bar" style="height:8px;">
+            <div class="progress-fill"
+                 style="width: {{ row.percent }}%;"></div>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p class="card-text">Not enough data yet. Start completing habits to see your leaderboard.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- ===================== RIGHT PANEL (OPTIONAL SIDE WIDGETS) ===================== -->
+  <div class="right-panel">
+    <div class="widget">
+      <h3>Quick Snapshot</h3>
+      <div class="circle-row">
+        <div class="circle-card">
+          <div class="circle">{{ stats.today_score }}%</div>
+          <span>Today</span>
+        </div>
+        <div class="circle-card">
+          <div class="circle">{{ stats.weekly_score }}%</div>
+          <span>7-Day Avg</span>
+        </div>
+        <div class="circle-card">
+          <div class="circle">{{ stats.best_streak }}d</div>
+          <span>Best Streak</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="widget">
+      <h3>Completion Today</h3>
+      {% if stats.total_habits > 0 %}
+      <p class="card-text">
+        {{ stats.done_today }} / {{ stats.total_habits }} habits done
+      </p>
+      <div class="progress-bar" style="height:10px;margin-top:8px;">
+        <div class="progress-fill"
+             style="width: {{ stats.today_score }}%;"></div>
+      </div>
+      {% else %}
+      <p class="card-text">Create your first habit to start tracking.</p>
+      {% endif %}
+    </div>
+  </div>
+
 </div>
+
 {% endblock %}

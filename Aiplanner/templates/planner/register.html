@@ -4,20 +4,24 @@
 {% block content %}
 <h1 class="page-title">Create Account</h1>
 
-<div class="info-card" style="max-width:450px;text-align:center;">
-    <h2>Join the AI Habit Tracker</h2>
+<form method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
 
-    <input type="text" placeholder="Name" style="padding:10px;width:100%;border-radius:10px;border:none;margin-top:10px;">
-    <input type="email" placeholder="Email" style="padding:10px;width:100%;border-radius:10px;border:none;margin-top:10px;">
-    <input type="password" placeholder="Password" style="padding:10px;width:100%;border-radius:10px;border:none;margin-top:10px;">
+    <div class="info-card register-card-enhanced" style="max-width:450px;text-align:center;">
+        <h2 style="margin-bottom:15px;">Join the AI Habit Tracker</h2>
 
-    <button style="margin-top:15px;padding:10px 15px;border-radius:10px;background:#6f5bff;color:white;border:none;width:100%;">
-        Register
-    </button>
+        <input type="text" name="name" placeholder="Name" class="register-input" required>
+        <input type="email" name="email" placeholder="Email" class="register-input" required>
+        <input type="password" name="password" placeholder="Password" class="register-input" required>
 
-    <p style="margin-top:10px;">
-        Already have an account?
-        <a href="{% url 'login' %}" style="color:#9da2ff;">Login</a>
-    </p>
-</div>
+        <button class="register-btn" type="submit">
+            Register
+        </button>
+
+        <p style="margin-top:10px;">
+            Already have an account?
+            <a href="{% url 'login' %}" style="color:#9da2ff;">Login</a>
+        </p>
+    </div>
+</form>
 {% endblock %}

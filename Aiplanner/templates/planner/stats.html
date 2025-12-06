@@ -2,90 +2,71 @@
 {% block title %}Stats | AI Habit Tracker{% endblock %}
 
 {% block content %}
-<h1 class="page-title">Statistics & Analytics</h1>
+<h1 class="page-title">Statistics &amp; Analytics</h1>
 
 <div class="columns">
-    <!-- AI Score Widget -->
-    <div class="widget">
-        <h3>AI Habit Score</h3>
-        <p>Your overall performance based on consistency, productivity, and time management.</p>
-        <div class="circle-row">
-            <div class="circle-card">
-                <div class="circle">82%</div>
-                <span>Today</span>
-            </div>
-            <div class="circle-card">
-                <div class="circle">74%</div>
-                <span>Weekly Avg</span>
-            </div>
-            <div class="circle-card">
-                <div class="circle">90%</div>
-                <span>Best Streak</span>
-            </div>
+  <!-- CARD 1 – AI Habit Score -->
+  <div class="column">
+    <div class="card card-main">
+      <div class="card-header">
+        <span>AI Habit Score</span>
+      </div>
+      <p class="card-text">
+        Your overall performance based on consistency, productivity, and time management.
+      </p>
+
+      <div class="circle-row" style="margin-top:12px;">
+        <div class="circle-card">
+          <div class="circle">{{ today_score }}%</div>
+          <span>Today</span>
         </div>
-    </div>
-
-    <!-- Completed Tasks Graph -->
-    <div class="widget">
-        <h3>Completed Habits</h3>
-        <div class="bar-row">
-            <div class="bar-group">
-                <div class="bar bar-blue" style="height: 80px;"></div>
-                <span>Morning</span>
-            </div>
-            <div class="bar-group">
-                <div class="bar bar-purple" style="height: 65px;"></div>
-                <span>Work</span>
-            </div>
-            <div class="bar-group">
-                <div class="bar bar-pink" style="height: 75px;"></div>
-                <span>Health</span>
-            </div>
-            <div class="bar-group">
-                <div class="bar bar-orange" style="height: 56px;"></div>
-                <span>Evening</span>
-            </div>
+        <div class="circle-card">
+          <div class="circle">{{ weekly_avg_score }}%</div>
+          <span>Weekly Avg</span>
         </div>
-    </div>
-
-    <!-- Habit Trend -->
-    <div class="widget">
-        <h3>Habit Trend</h3>
-        <p>Shows your consistency over the last 7 days.</p>
-
-        <div style="margin-top: 10px;">
-            <div class="bar-row" style="align-items: flex-end;">
-                <div class="bar-group">
-                    <div class="bar bar-purple" style="height: 40px;"></div>
-                    <span>Mon</span>
-                </div>
-                <div class="bar-group">
-                    <div class="bar bar-purple" style="height: 65px;"></div>
-                    <span>Tue</span>
-                </div>
-                <div class="bar-group">
-                    <div class="bar bar-purple" style="height: 80px;"></div>
-                    <span>Wed</span>
-                </div>
-                <div class="bar-group">
-                    <div class="bar bar-purple" style="height: 70px;"></div>
-                    <span>Thu</span>
-                </div>
-                <div class="bar-group">
-                    <div class="bar bar-purple" style="height: 30px;"></div>
-                    <span>Fri</span>
-                </div>
-                <div class="bar-group">
-                    <div class="bar bar-purple" style="height: 58px;"></div>
-                    <span>Sat</span>
-                </div>
-                <div class="bar-group">
-                    <div class="bar bar-purple" style="height: 90px;"></div>
-                    <span>Sun</span>
-                </div>
-            </div>
+        <div class="circle-card">
+          <div class="circle">{{ best_streak }}</div>
+          <span>Best Streak (days)</span>
         </div>
+      </div>
     </div>
+  </div>
 
+  <!-- CARD 2 – Completed Habits (bars) -->
+  <div class="column">
+    <div class="card card-main">
+      <div class="card-header">
+        <span>Completed Habits</span>
+      </div>
+      <div class="bar-row" style="margin-top:10px;">
+        {% for bar in category_bars %}
+        <div class="bar-group">
+          <div class="bar bar-purple" style="height: {{ bar.height }}px;"></div>
+          <span>{{ bar.label }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3 – Habit Trend (last 7 days) -->
+  <div class="column">
+    <div class="card card-main">
+      <div class="card-header">
+        <span>Habit Trend</span>
+      </div>
+      <p class="card-text">
+        Shows your consistency over the last 7 days.
+      </p>
+      <div class="bar-row" style="margin-top:12px;">
+        {% for d in trend_bars %}
+        <div class="bar-group">
+          <div class="bar bar-purple" style="height: {{ d.height }}px;"></div>
+          <span>{{ d.label }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

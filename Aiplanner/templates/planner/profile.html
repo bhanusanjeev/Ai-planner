@@ -4,32 +4,49 @@
 {% block content %}
 <h1 class="page-title">My Profile</h1>
 
-<div class="info-card" style="max-width: 500px;">
-    <h2>User Information</h2>
-    
+<div class="info-card" style="max-width:500px;">
+
+    <h2>Your Profile</h2>
+
     <div style="display:flex; align-items:center; gap:15px; margin:15px 0;">
-        <div class="user-avatar" style="width:50px; height:50px; font-size:20px;">B</div>
+
+        <!-- Avatar (Dynamic Initial) -->
+        <div class="user-avatar"
+             style="width:55px;height:55px;font-size:22px;">
+            {{ user.first_name|first|upper }}
+        </div>
+
         <div>
-            <p><strong>Name:</strong> Bhanu Prakash</p>
-            <p><strong>Role:</strong> AI Habit Tracker User</p>
-            <p><strong>Member Since:</strong> 2024</p>
+            <p><strong>Name:</strong> {{ user.first_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Member Since:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+            <li><a href="{% url 'change_password' %}">Change Password</a></li>
+<li><a href="{% url 'delete_account' %}" style="color:#ff7070;">Delete Account</a></li>
+
         </div>
     </div>
 
     <h3 style="margin-top:20px;">Your Stats</h3>
     <ul>
-        <li>Best Streak: <strong>12 days</strong></li>
-        <li>Habits Tracked: <strong>8</strong></li>
-        <li>AI Productivity Score: <strong>82%</strong></li>
-        <li>Daily Completion Rate: <strong>71%</strong></li>
+        <li>Total Habits: <strong>{{ total_habits }}</strong></li>
+        <li>Completed Today: <strong>{{ completed_today }}</strong></li>
+        <li>Active Habits: <strong>{{ active_habits }}</strong></li>
     </ul>
 
-    <h3 style="margin-top:20px;">Settings</h3>
+    <h3 style="margin-top:20px;">Actions</h3>
     <ul>
         <li><a href="#" style="color:#9da2ff;">Edit Profile</a></li>
-        <li><a href="#" style="color:#9da2ff;">Change Password</a></li>
-        <li><a href="#" style="color:#ff7070;">Logout</a></li>
-    </ul>
-</div>
+        <li><a href="{% url 'change_password' %}">Change Password</a></li>
+<li><a href="{% url 'delete_account' %}" style="color:#ff7070;">Delete Account</a></li>
 
+        <!-- Logout button -->
+        <li style="margin-top:12px;">
+            <a href="{% url 'logout' %}"
+               style="color:#ff7070;font-weight:600;">
+                Logout
+            </a>
+        </li>
+    </ul>
+
+</div>
 {% endblock %}

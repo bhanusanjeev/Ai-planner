@@ -1,0 +1,206 @@
+{% extends "planner/base.html" %}
+{% block title %}AI Coach Chat{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title" style="text-align:center;">AI Coach Chat 🤖</h1>
+
+<div class="chat-container">
+
+    <div class="chat-window" id="chatWindow">
+        {% for msg in history %}
+            {% if msg.sender == "user" %}
+                <div class="msg user-msg">
+                    <div class="bubble user-bubble">{{ msg.text }}</div>
+                </div>
+            {% else %}
+                <div class="msg ai-msg">
+                    <div class="bubble ai-bubble">{{ msg.text|linebreaks }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <!-- AI Typing Animation -->
+        <div id="typingIndicator" class="msg ai-msg" style="display:none;">
+            <div class="bubble ai-bubble typing">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <form method="POST" class="chat-form" id="chatForm">
+        {% csrf_token %}
+       <input 
+    type="text" 
+    name="message" 
+    id="chatInput"
+    class="chat-input landing-style-input" 
+    placeholder="Ask anything about your habits… For example:  
+• Why did I miss my habit today?
+• Give me personalised tips for tomorrow.
+• How can I improve my streak?
+• Analyse my progress and help me plan better."
+    autocomplete="off">
+
+        <button class="chat-send">➤</button>
+    </form>
+</div>
+
+<style>
+.chat-container {
+    max-width: 720px;
+    margin: auto;
+    background: #12122a;
+    border-radius: 14px;
+    padding: 15px;
+}
+
+/* Chat window */
+.chat-window {
+    height: 420px;
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 12px;
+    background: #0d0f25;
+}
+
+/* Message alignment */
+.msg { margin-bottom: 12px; display: flex; }
+
+.user-msg { justify-content: flex-end; }
+.ai-msg   { justify-content: flex-start; }
+
+/* Chat bubbles */
+.bubble {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.user-bubble {
+    background: #3b82f6;
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.ai-bubble {
+    background: #1f233d;
+    color: #dcdcff;
+    border-bottom-left-radius: 4px;
+}
+
+/* Chat input style (Landing page style merged) */
+.landing-style-input {
+    background: #101231;
+    color: white;
+    border: 2px solid #6f5bff;
+    font-size: 15px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.landing-style-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(111, 91, 255, 0.5);
+}
+
+.chat-form {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.chat-send {
+    width: 55px;
+    background: linear-gradient(135deg, #6f5bff, #a36bff);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    transition: 0.25s;
+}
+
+.chat-send:hover { opacity: 0.85; transform: translateY(-2px); }
+
+/* Typing Animation */
+.typing {
+    display: flex;
+    gap: 4px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background: #aaaaff;
+    border-radius: 50%;
+    animation: typingAnim 1s infinite;
+}
+
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingAnim {
+    0%   { opacity: 0.2; transform: translateY(0px); }
+    50%  { opacity: 1;   transform: translateY(-3px); }
+    100% { opacity: 0.2; transform: translateY(0px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<script>
+// Auto-scroll chat
+function scrollToBottom() {
+    var chatWindow = document.getElementById("chatWindow");
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+scrollToBottom();
+
+// Show typing animation on submit
+document.getElementById("chatForm").addEventListener("submit", () => {
+    document.getElementById("typingIndicator").style.display = "flex";
+    scrollToBottom();
+});
+
+// Auto-scroll chat
+function scrollToBottom() {
+    var chatWindow = document.getElementById("chatWindow");
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+scrollToBottom();
+
+// Typing indicator
+document.getElementById("chatForm").addEventListener("submit", () => {
+    document.getElementById("typingIndicator").style.display = "flex";
+    scrollToBottom();
+});
+
+// 🟣 Smart Placeholder Hide
+const chatInput = document.getElementById("chatInput");
+const defaultPH = chatInput.getAttribute("placeholder");
+
+// Remove placeholder when typing starts
+chatInput.addEventListener("focus", () => {
+    chatInput.setAttribute("placeholder", "");
+});
+
+// Bring back placeholder when input is empty
+chatInput.addEventListener("blur", () => {
+    if (chatInput.value.trim() === "") {
+        chatInput.setAttribute("placeholder", defaultPH);
+    }
+});
+</script>
+
+
+{% endblock %}
