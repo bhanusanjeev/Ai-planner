@@ -1,0 +1,16 @@
+🌍 Tech Stack
+Backend
+Python 3.10+
+Django 4.2
+SQLite (local)
+
+Frontend:
+HTML / CSS
+Vanilla JS
+Inter Font
+FontAwesome
+
+AI :
+Groq API
+Llama-3.1 / 3.3 Models
+Context-enhanced prompts
