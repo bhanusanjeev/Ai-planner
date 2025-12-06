@@ -1,0 +1,28 @@
+📦 1. Clone Repository
+git clone https://github.com/your-username/ai-habit-tracker.git
+cd ai-habit-tracker
+
+🧰 2. Create Virtual Environment
+python -m venv env
+env\Scripts\activate     # Windows
+source env/bin/activate  # Mac/Linux
+
+📚 3. Install Dependencies
+pip install -r requirements.txt
+
+🔐 4. Set Environment Variables
+
+Create .env file:
+
+GROQ_API_KEY=your_api_key_here
+
+🗄️ 5. Run Migrations
+python manage.py migrate
+
+▶️ 6. Start Server
+python manage.py runserver
+
+
+Visit:
+
+http://localhost:8000
