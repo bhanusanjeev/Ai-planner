@@ -1,373 +1,122 @@
-🚀 AI Habit Tracker — Ultimate README
+🌟 AI Habit Tracker — Your Personal AI Habit Coach
 
-A modern, AI-powered habit tracking system built with Django + Groq LLaMA AI, offering streak tracking, analytics, personalized suggestions, and a smart AI chat coach.
+AI Habit Tracker is a modern, intuitive, and AI-powered habit-building tool designed to help people stay consistent, understand why they slip, and receive real-time coaching through powerful analytics and a dedicated AI chat assistant.
 
-Beautiful UI. Fully responsive. Fast AI responses.
-Made with consistency, discipline, and pure fire. 🔥
+This project blends behavioral psychology, beautiful UI/UX, and Groq AI intelligence to deliver a next-level habit-tracking experience.
 
-🌟 Table of Contents
+🎯 Purpose of This Website
 
-Overview
+The primary goal of AI Habit Tracker is to:
 
-Purpose
+✔️ Help users build strong habits
+✔️ Identify why habits are missed
+✔️ Provide personalized improvement suggestions
+✔️ Offer AI coaching based on real data
+✔️ Track streaks and progress visually
+✔️ Motivate users to stay consistent
 
-Features
+This isn’t just a tracker…
+It’s your personal AI-driven accountability partner.
 
-Architecture
+🧠 How It Works (Simple Explanation)
 
-Database Schema
+Every day, users do two things:
 
-Setup & Installation
+1️⃣ Add habits they want to track
+2️⃣ Mark them done/not done daily
 
-Environment Variables
+As the user interacts:
 
-Running Locally
+Habit logs are stored
 
-AI Engine (Groq + LLaMA)
+Analytics automatically update
 
-API Endpoints
+Streaks are recalculated
 
-Frontend / UI
+Weak areas are detected
 
-Deployment Guide
+AI gets smarter with your data
 
-Troubleshooting
+The system uses this data to:
 
-Contributing
+🔥 Generate personalized AI suggestions
+🤖 Provide coaching inside AI chat
+📊 Show insights & improvement paths
+⚡ Motivate with score tracking
 
-Author
+🧩 Features
+🌱 Habit Management
 
-🧠 Overview
-
-AI Habit Tracker is a productivity platform that blends habit tracking, data analytics, and AI coaching into one powerful tool.
-
-It doesn’t just track habits;
-it explains your patterns, analyzes your weaknesses, and guides improvement using AI.
-
-This project features:
-
-Daily / weekly scores
-
-Streaks + habit analytics
-
-AI suggestions
-
-AI chat coach that understands your progress
-
-Mobile responsive dashboard
-
-🎯 Purpose
-
-The main purpose is to help users:
-
-Build and maintain habits
-
-Understand why they miss habits
-
-Get personalized improvement strategies
-
-Stay accountable with streaks and analytics
-
-Get motivation from an AI coach
-
-This is not “just another habit tracker”…
-This one thinks.
-
-✨ Features
-🧩 Habit Management
-
-Add habits
-
-Toggle daily completion
+Add new habits
 
 Delete habits
 
-Automatic streak calculation
+Toggle daily status (Done / Not Done)
 
-📊 Analytics Dashboard
+Clean UI with cards
 
-Today score
+📊 Analytics & Insights
+
+Today’s habit score
 
 Weekly average
 
-Streak count
+Current & best streak
 
-Best streak
+Trend bars
 
-Simple, clear visual UI
+Completion stats
 
-🤖 AI Features
-AI Suggestions
+Dynamic charts
 
-Explains your performance
+🤖 AI Suggestions (Groq Powered)
 
-Gives improvements
+Reads your analytics
 
-Adds emojis + bullet formatting
+Reads last 14 habit logs
 
-Uses live analytics
+Provides step-wise improvement advice
 
-AI Chat Coach
+Uses Llama-3.3 70B
 
-Full conversation memory
+Weekly patterns detection
 
-Reads habit history + logs
+Missed habit reasoning
 
-Generates coaching advice
+💬 AI Chat Habit Coach
 
-Fast responses via Groq LLaMA
+Full chat interface
 
-Shows typing animation (optional UI)
+Typing animation
 
-🎨 UI Highlights
+Message history
 
-Neon gradient glass theme
+Context-aware responses
 
-Fully responsive (mobile + desktop)
+Uses your streaks + logs + stats
 
-Sidebar + topbar layout
+Conversation feels like ChatGPT
 
-Beautiful cards and animations
-
-🏗️ Architecture
-project/
-│
-├── planner/
-│   ├── views.py
-│   ├── models.py
-│   ├── utils/
-│   │    ├── stats.py          # analytics calculation
-│   │    └── ai_engine.py      # Groq API integration
-│   ├── templates/
-│   └── static/
-│
-└── Aiplanner/settings.py
-
-🗄️ Database Schema
-Habit Model
-Field	Type	Description
-id	Integer	Primary Key
-user	FK(User)	Owner
-name	String	Habit title
-created_at	DateTime	Timestamp
-HabitLog Model
-Field	Type	Description
-id	Integer	Primary Key
-habit	FK(Habit)	Habit reference
-date	Date	Log date
-status	String	Done / Not Done
-Relationship Diagram
-User ───< Habit ───< HabitLog
-
-Analytics (Computed)
-
-today_score
-
-weekly_avg_score
-
-current_streak
-
-best_streak
-
-🛠️ Setup & Installation
-1️⃣ Clone the Repo
-git clone https://github.com/your-username/ai-habit-tracker.git
-cd ai-habit-tracker
-
-2️⃣ Create Virtual Environment
-python -m venv venv
-venv\Scripts\activate  # Windows
-source venv/bin/activate  # Mac/Linux
-
-3️⃣ Install Dependencies
-pip install -r requirements.txt
-
-4️⃣ Create .env file
-GROQ_API_KEY=your-api-key-here
-SECRET_KEY=your-django-secret
-DEBUG=True
-
-5️⃣ Apply Migrations
-python manage.py migrate
-
-6️⃣ Run the Server
-python manage.py runserver
-
-
-Visit →
-http://127.0.0.1:8000/
-
-🔑 Environment Variables
-
-Your .env must contain:
-
-GROQ_API_KEY=
-SECRET_KEY=
-DEBUG=
-
-
-In settings.py:
-
-from dotenv import load_dotenv
-load_dotenv()
-
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
-
-▶️ Running Locally
-
-Start server:
-
-python manage.py runserver
-
-
-AI Chat test route:
-
-/ai-chat/
-
-
-AI Suggestions:
-
-/ai_suggestions/
-
-🤖 AI Engine
-
-AI powered by Groq LLaMA3 (llama3-8b-8192).
-
-How It Works
-
-System collects:
-
-streaks
-
-scores
-
-weekly average
-
-logs
-
-Builds context block
-
-Sends to Groq ChatCompletion
-
-AI returns structured coaching
-
-Chat history stored in session
-
-AI Context Example
-User Stats:
-Today Score: 60%
-Weekly Avg: 54%
-Streak: 4 days
-
-Recent Logs:
-- Reading: Done
-- Workout: Not Done
-
-🌐 API Endpoints
-Habit Endpoints
-Method	Endpoint	Description
-GET	/habits/	List habits
-POST	/habits/	Add habit
-GET	/delete_habit/<id>/	Delete habit
-POST	/toggle_habit_today/<id>/	Toggle status
-AI Endpoints
-Method	Endpoint	Description
-GET	/ai_suggestions/	AI summary
-POST	/ai-chat/	AI conversation
-🎨 Frontend / UI
-
-Built using Django Templates + Custom CSS.
-
-Includes:
+🎨 Modern User Interface
 
 Sidebar navigation
 
-Topbar with profile
+Gradient buttons
 
-Beautiful glassmorphism cards
+Glassmorphism cards
 
-Neon gradients
-
-Smooth animations
-
-Fully redesigned responsive UI
-
-Chat UI features:
-
-Bubble layout
-
-Auto scroll
+Mobile-responsive
 
 Smooth transitions
 
-🚀 Deployment Guide
-Deploy on ⭐ Render
-Steps:
-1. Push repo → GitHub
-2. Create Render Web Service
-3. Add environment variables:
-GROQ_API_KEY
-SECRET_KEY
-DEBUG=False
+🔐 Authentication
 
-4. Build command:
-pip install -r requirements.txt
+Login
 
-5. Start command:
-gunicorn Aiplanner.wsgi
+Register
 
-6. Collect static:
-python manage.py collectstatic
+Logout
 
-🛠️ Troubleshooting
-❌ AI not responding
+Profile
 
-Wrong or missing API key
-
-Restart server
-
-Check Groq model name
-
-❌ CSS not loading
-
-Browser cache
-
-Static files missing
-
-Wrong STATIC_URL
-
-❌ Chat errors
-
-Missing session
-
-Incorrect context keys
-
-🤝 Contributing
-
-Fork repo
-
-Create feature branch
-
-Write clean commits
-
-Open pull request
-
-Coding rules:
-
-Follow PEP8
-
-Use utility modules
-
-Keep prompts clean
-
-Comment AI logic
-
-👤 Author
-Built by: Bhanu Sanjeev
-
-A project born from discipline, growth, and passion.
-Designed, coded, and perfected with dedication.
-
-Special Thanks
-
-ChatGPT — AI coding partner throughout the build.
+Settings page
