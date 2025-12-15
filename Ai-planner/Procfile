@@ -1,1 +1,0 @@
-web: gunicorn Aiplanner.Aiplanner.wsgi:application
