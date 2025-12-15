@@ -26,6 +26,12 @@ from django.contrib.auth.decorators import login_required
 from .utils.analytics import calculate_user_stats
 from .models import Habit, HabitLog
 from .utils.ai_engine import ask_ai_chatbot 
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("AI Planner is Live 🚀")
+
+
 @login_required(login_url="login")
 def stats(request):
     user = request.user

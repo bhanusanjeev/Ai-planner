@@ -32,12 +32,15 @@ SECRET_KEY = os.environ.get(
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # keep true for now
+
 ALLOWED_HOSTS = [
+    "ai-planner-7aa2.onrender.com",
+    ".onrender.com",
     "localhost",
     "127.0.0.1",
-    "ai-planner-7aa2.onrender.com"
 ]
+
 
 
 # Application definition
@@ -149,6 +152,10 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = (
     "whitenoise.storage.CompressedManifestStaticFilesStorage"
 )
+CSRF_TRUSTED_ORIGINS = [
+    "https://ai-planner-7aa2.onrender.com"
+]
+
 
 
 
